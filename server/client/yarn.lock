@@ -1804,6 +1804,11 @@
   dependencies:
     vue-demi "*"
 
+"@wangeditor/editor-for-vue@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@wangeditor/editor-for-vue/-/editor-for-vue-1.0.2.tgz#62674d56354319ff8dcc83db5c62cec4437ee906"
+  integrity sha512-BOENvAXJVtVXlE2X50AAvjV82YlCUeu5cbeR0cvEQHQjYtiVnJtq7HSoj85r2kTgGouI5OrpJG9BBEjSjUSPyA==
+
 "@webassemblyjs/ast@1.11.6", "@webassemblyjs/ast@^1.11.5":
   version "1.11.6"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.11.6.tgz#db046555d3c413f8966ca50a95176a0e2c642e24"
