@@ -7,6 +7,7 @@ class User(models.Model):
     nickname = models.CharField(max_length=32, null=False)
     email = models.EmailField(null=False)
     avatar = models.ImageField(null=True)
+    isAdmin = models.BooleanField(default=False)
 
     def __str__(self):
-        return "username:" + self.username + "nickname:" + self.nickname + " email:" + self.email
+        return "username:" + self.username + "nickname:" + self.nickname + " email:" + self.email + " isAdmin:" + self.isAdmin

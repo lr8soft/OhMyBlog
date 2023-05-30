@@ -21,6 +21,6 @@ class ErrorResponse(Enum):
 	OPERATION_SUCCESS = "operation_success"
 	OPERATION_FAIL = "operation_fail"
 
-	TOPIC_NOT_EXIST = "topic_not_exist"
+	ARTICLE_NOT_EXIST = "article_not_exist"
 	REPLY_NOT_EXIST = "reply_not_exist"
 	PAGE_OUT_OF_RANGE = "page_out_of_range"
