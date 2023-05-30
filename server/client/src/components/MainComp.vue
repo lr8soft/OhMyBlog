@@ -2,20 +2,19 @@
     <div id="page">
         <div id="info-list">
             <div class="info-item" v-for="item in articleData" :key="item.id">
-                <el-card>
-                    <template #header>
-                        <div class="card-header">
-                            <span>{{item.title}}</span>
-                        </div>
-                    </template>
-                    <div class="card-content">
-                        <span>{{item.content}}</span>
-                    </div>
-                    <div class="card-footer">
-                        <span>{{item.createDate}}</span>
-                        <span>{{item.pageView}}次浏览</span>
-                    </div>
-                </el-card>
+                <el-container class="info-item">
+                    <el-header class="card-header">
+                        <span>{{ item.title }}</span>
+                    </el-header>
+
+                    <el-main class="card-main">
+                        <span>{{ item.content }}</span>
+                    </el-main>
+
+                    <el-footer class="card-footer">
+                        <span>发表于{{ item.createDate }} &nbsp;{{ item.pageView }}次浏览</span>
+                    </el-footer>
+                </el-container>
             </div>
         </div>
 
@@ -47,12 +46,21 @@ export default {
             pageItemCount: 0,
             articleData: [
                 {
+                    id: 0,
                     title: 'title1',
                     content: 'content1content1content1content1content1content1content1content1content1',
                     banner: "default.png",
                     pageView: 233,
                     createDate: "2021-01-01"
                 },
+                {
+                    id: 1,
+                    title: '222',
+                    content: 'sfasfsfsdfjsadlfjlksdflksdlsfjdsfsflsjfslkfjssldkdjflksdjlfsldjkfl',
+                    banner: "default.png",
+                    pageView: 233,
+                    createDate: "2021-01-01"
+                }
             ],
             userData: useGlobalData()
         }
@@ -83,14 +91,43 @@ export default {
 
 #info-list{
     width: 70%;
-    height: 350px;
-    padding-bottom: 20px;
+    min-height: 350px;
     margin: auto;
 }
 
 .info-item{
     width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+}
+
+.card-header{
+    width: 100%;
+    height: 40px;
     margin: 20px auto 0 auto;
+    /*下划线*/
+    border-bottom: 1px solid #ebeef5;
+
+    font-size: 18px;
+}
+
+.card-main{
+    width: 100%;
+    height: 150px;
+    margin: 0 auto 0 auto;
+    /*下划线*/
+    border-bottom: 1px solid #ebeef5;
+    font-size: 15px;
+}
+
+.card-footer{
+    width: 100%;
+    height: 40px;
+    margin: 20px auto 0 auto;
+    /*字体灰色*/
+    color: #909399;
+    font-size: 10px;
 }
 
 #bottom-part{
@@ -100,7 +137,7 @@ export default {
 }
 
 #paginator-comp{
-    width: 100%;
+    width: 70%;
     margin: auto;
 }
 </style>
