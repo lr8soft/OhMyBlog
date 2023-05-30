@@ -4,15 +4,15 @@
             <div class="info-item" v-for="item in articleData" :key="item.id">
                 <el-container class="info-item">
                     <el-header class="card-header">
-                        <span>{{ item.title }}</span>
+                        <span class="card-text-single card-header-text">{{ item.title }}</span>
                     </el-header>
 
                     <el-main class="card-main">
-                        <span>{{ item.content }}</span>
+                        <span class="card-main-text">{{ item.content }}</span>
                     </el-main>
 
                     <el-footer class="card-footer">
-                        <span>发表于{{ item.createDate }} &nbsp;{{ item.pageView }}次浏览</span>
+                        <span class="card-text-single card-footer-text">发表于{{ item.createDate }} &nbsp;{{ item.pageView }}次浏览</span>
                     </el-footer>
                 </el-container>
             </div>
@@ -48,7 +48,7 @@ export default {
                 {
                     id: 0,
                     title: 'title1',
-                    content: 'content1content1content1content1content1content1content1content1content1',
+                    content: 'content1content1content1ccontent1content1content1content1content1content1content1content1content1ontent1content1content1content1content1content1',
                     banner: "default.png",
                     pageView: 233,
                     createDate: "2021-01-01"
@@ -97,6 +97,7 @@ export default {
 
 .info-item{
     width: 100%;
+    min-width: 240px;
     border-radius: 5px;
     box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1);
     margin-top: 40px;
@@ -108,7 +109,9 @@ export default {
     margin: 20px auto 0 auto;
     /*下划线*/
     border-bottom: 1px solid #ebeef5;
+}
 
+.card-header-text{
     font-size: 18px;
 }
 
@@ -118,6 +121,25 @@ export default {
     margin: 0 auto 0 auto;
     /*下划线*/
     border-bottom: 1px solid #ebeef5;
+}
+
+.card-text-single{
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.card-main-text{
+    /*最多换行3行，禁止滚动条*/
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    text-align: left;
+    word-break: break-all;
+
     font-size: 15px;
 }
 
@@ -125,6 +147,10 @@ export default {
     width: 100%;
     height: 40px;
     margin: 20px auto 0 auto;
+
+}
+
+.card-footer-text{
     /*字体灰色*/
     color: #909399;
     font-size: 10px;
