@@ -97,7 +97,7 @@ export default {
 
 .info-item{
     width: 100%;
-    min-width: 240px;
+    /*min-width: 240px;*/
     border-radius: 5px;
     box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1);
     margin-top: 40px;
