@@ -11,20 +11,16 @@
     </el-container>
 
     <el-card id="article-page">
+        <span id="article-reply-count">共有{{repliesCount}}条回复</span>
         <div  v-for="reply in replies" :key="reply.id">
-            <el-container class="article-reply-item">
-                <el-aside class="article-reply-user-info">
-                    <el-icon size="64px"><User /></el-icon>
+            <el-container class="article-reply">
+                <el-aside class="article-reply-aside">
+                    <img class="article-reply-user-avatar" :src="reply.avatar">
+                    <p class="article-reply-username">{{reply.user}}</p>
                 </el-aside>
-                <el-header>
-                    <span>{{reply.user}}</span>
-                </el-header>
                 <el-main>
-                    <span>{{reply.content}}</span>
+                    <span class="article-reply-content">{{reply.content}}</span>
                 </el-main>
-                <el-footer>
-                    <span>{{reply.createData}}</span>
-                </el-footer>
             </el-container>
         </div>
     </el-card>
@@ -52,12 +48,20 @@ export default {
             },
             pageCount: 1,
             pageItemCount: 10,
-            repliesCount: 1,
+            repliesCount: 2,
             replies: [
                 {
                     id: 0,
                     user: 'lrsoft',
-                    content: '测试回复',
+                    avatar: require('../assets/avatar.jpg'),
+                    content: 'HELLO WORLD!',
+                    createData: '2021-01-01 00:00:00'
+                },
+                {
+                    id: 1,
+                    user: 'lttest',
+                    avatar: require('../assets/avatar.jpg'),
+                    content: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                     createData: '2021-01-01 00:00:00'
                 }
             ],
@@ -115,16 +119,50 @@ export default {
     font-size: 16px;
 }
 
-
-.article-reply-item{
-    width: 100%;
-    min-height: 150px;
+#article-reply-count{
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px auto 10px 5px;
 }
 
-.article-reply-user-info{
+.article-reply{
+    margin: 10px auto 10px auto;
+    border-bottom: 1px solid #ebeef5;
+}
+
+.article-reply-aside{
     width: 120px;
-    padding-top: 20px;
+    /*height: 140px;*/
+    padding-top: 10px;
     align-items: center;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.article-reply-user-avatar{
+    display: block;
+    margin: 0 auto;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.article-reply-username{
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+
+.article-reply-content{
+    font-size: 14px;
+    min-height: 100px;
+    word-break: break-all;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+
 }
 </style>
