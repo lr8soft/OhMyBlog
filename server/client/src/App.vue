@@ -3,6 +3,12 @@
         <el-header id="app-header">
             <img :src="require('./assets/banner.jpg')" id="app-image-banner">
             <img :src="logo" id="app-image-logo">
+
+            <div id="app-menu-btn-group">
+                <el-icon id="app-menu-icon" size="32" color="gray"><Menu /></el-icon>
+                <el-icon id="app-search-icon" size="32" color="gray"><Stopwatch /></el-icon>
+            </div>
+
         </el-header>
         <el-main id="app-main">
             <router-view></router-view>
@@ -73,6 +79,34 @@ html, body{
 
 #app-image-logo:hover{
     transform: translate(-50%, -50%) rotate(360deg);
+    -webkit-transform: translate(-50%, -50%) rotate(360deg);
+    -moz-transform: translate(-50%, -50%) rotate(360deg);
+    -o-transform: translate(-50%, -50%) rotate(360deg);
+}
+
+#app-menu-btn-group{
+    position: relative;
+    width: 48px;
+    margin: 32px 32px auto auto;
+    flex-direction: column;
+    display: flex;
+}
+
+#app-menu-icon{
+    width: 48px;
+    height: 48px;
+    border-radius: 5%;
+    background-color: white;
+    cursor: pointer;
+}
+
+#app-search-icon{
+    width: 48px;
+    height: 48px;
+    border-radius: 5%;
+    background-color: white;
+    margin-top: 16px;
+    cursor: pointer;
 }
 
 #app-main{

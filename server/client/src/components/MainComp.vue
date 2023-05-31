@@ -147,7 +147,6 @@ export default {
     width: 100%;
     height: 40px;
     margin: 20px auto 0 auto;
-
 }
 
 .card-footer-text{
