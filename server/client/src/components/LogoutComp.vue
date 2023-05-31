@@ -35,7 +35,7 @@ export default {
 #info-box{
   width: 350px;
   height: 180px;
-  margin: 120px auto;
+  margin: 80px auto;
   text-align: center;
   align-items: center;
   border-radius: 10px;

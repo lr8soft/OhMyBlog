@@ -2,7 +2,7 @@
     <el-container id="app-page">
         <el-header id="app-header">
             <img :src="require('./assets/banner.jpg')" id="app-image-banner">
-            <img :src="logo" id="app-image-logo">
+            <img :src="logo" id="app-image-logo" @click="navigatorTo('/')">
 
             <div id="app-menu-btn-group">
                 <el-icon id="app-menu-icon" size="32" color="gray" @click="drawer=true"><Menu /></el-icon>
@@ -61,6 +61,11 @@ export default {
             userData: useGlobalData(),
             drawer: ref(false)
         }
+    },
+    methods: {
+        navigatorTo(link){
+            this.$router.push(link)
+        }
     }
 }
 </script>
@@ -77,7 +82,7 @@ html, body{
 
 #app-header{
     width: 100%;
-    height: 300px;
+    height: 200px;
     position: relative;
     margin: 0;
     padding: 0;
@@ -85,7 +90,7 @@ html, body{
 
 #app-image-banner{
     width: 100%;
-    height: 300px;
+    height: 200px;
     object-fit: cover;
     position: absolute;
     top: 0;
@@ -111,6 +116,8 @@ html, body{
     -webkit-transition: All 0.6s ease-in-out;
     -moz-transition: All 0.6s ease-in-out;
     -o-transition: All 0.6s ease-in-out;
+
+    cursor: pointer;
 }
 
 #app-image-logo:hover{

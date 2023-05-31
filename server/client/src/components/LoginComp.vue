@@ -64,7 +64,7 @@ export default {
 .login-form{
   width: 400px;
   height: 320px;
-  margin: 120px auto;
+  margin: 80px auto;
   text-align: center;
   border-radius: 10px;
   border: 1px solid var(--el-border-color);

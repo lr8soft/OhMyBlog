@@ -3,7 +3,7 @@
         <div id="info-list">
             <div class="info-item" v-for="item in articleData" :key="item.id">
                 <el-container class="info-item">
-                    <el-header class="card-header">
+                    <el-header class="card-header" @click="navigateToArticle(item.id)">
                         <span class="card-text-single card-header-text">{{ item.title }}</span>
                     </el-header>
 
@@ -78,6 +78,9 @@ export default {
             }).catch(err => {
                 ElMessage.error(err)
             })
+        },
+        navigateToArticle(id) {
+            this.$router.push('/article/' + id)
         }
     }
 }

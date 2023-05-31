@@ -58,7 +58,7 @@ export default {
 .regist-form{
   width: 400px;
   height: 400px;
-  margin: 80px auto;
+  margin: 40px auto;
   text-align: center;
   border-radius: 10px;
   border: 1px solid var(--el-border-color);
