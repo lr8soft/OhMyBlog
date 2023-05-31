@@ -5,7 +5,7 @@
             <img :src="logo" id="app-image-logo">
 
             <div id="app-menu-btn-group">
-                <el-icon id="app-menu-icon" size="32" color="gray"><Menu /></el-icon>
+                <el-icon id="app-menu-icon" size="32" color="gray" @click="drawer=true"><Menu /></el-icon>
                 <el-icon id="app-search-icon" size="32" color="gray"><Stopwatch /></el-icon>
             </div>
 
@@ -14,16 +14,52 @@
             <router-view></router-view>
         </el-main>
     </el-container>
+
+    <el-drawer
+        id="app-main-drawer"
+        v-model="drawer"
+        direction="rtl"
+        size="15%">
+        <div
+            style="margin-bottom: 18px;"
+            v-for="linkItem in menuLink"
+            :key="linkItem.id">
+            <!--检测链接是否http开头-->
+            <a class="app-main-drawer-item" :href="linkItem.link" v-if="linkItem.link.startsWith('http')">{{linkItem.name}}</a>
+            <router-link class="app-main-drawer-item" :to="linkItem.link" v-else>{{linkItem.name}}</router-link>
+        </div>
+
+    </el-drawer>
 </template>
 
 <script>
 import {useGlobalData} from "@/services/globalData";
+import { ref } from 'vue'
+
 export default {
     name: 'App',
     data(){
         return{
+            menuLink: [
+                {
+                    id: 0,
+                    name: '首页',
+                    link: '/'
+                },
+                {
+                    id: 1,
+                    name: '登录',
+                    link: '/login'
+                },
+                {
+                    id: 2,
+                    name: 'GitLab',
+                    link: 'http://lrsoft.xyz:8080/'
+                }
+            ],
             logo: require('./assets/logo.png'),
-            userData: useGlobalData()
+            userData: useGlobalData(),
+            drawer: ref(false)
         }
     }
 }
@@ -112,5 +148,23 @@ html, body{
 #app-main{
     width: 100%;
     padding: 0;
+}
+
+#app-main-drawer{
+    font-size: 20px;
+    flex-direction: column;
+    display: flex;
+}
+
+.app-main-drawer-item{
+    width: 100%;
+    margin: auto;
+    color: black;
+    text-decoration: none;
+    /*居中显示*/
+    display: flex;
+    justify-content: center;
+
+
 }
 </style>
