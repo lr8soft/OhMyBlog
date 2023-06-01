@@ -89,12 +89,12 @@ export default {
 <style scoped>
 #page{
     width: 90%;
-    min-height: 600rpx;
+    min-height: 600px;
     margin: auto;
 }
 
 #info-list{
-    width: 70%;
+    width: 68%;
     min-height: 350px;
     margin: auto;
 }
