@@ -80,9 +80,10 @@ export default {
 }
 
 #admin-card{
-    width: 90%;
+    /*width: 90%;
     min-width: 750px;
-    min-height: 500px;
+    min-height: 500px;*/
+    width: 100%;
     margin: 20px 20px auto 20px;
 }
 </style>
