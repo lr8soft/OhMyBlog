@@ -53,6 +53,11 @@ export default {
                 },
                 {
                     id: 2,
+                    name: '后台管理',
+                    link: '/admin'
+                },
+                {
+                    id: 3,
                     name: 'GitLab',
                     link: 'http://lrsoft.xyz:8080/'
                 }

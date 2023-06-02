@@ -195,7 +195,7 @@ export default {
     width: 100%;
     height: 100px;
     resize: none;
-    border: 1px solid #909399;
+    border: 1px solid #ebeef5;
     border-radius: 1px;
     outline-color: #ebeef5;
 }
