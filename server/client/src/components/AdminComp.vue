@@ -9,8 +9,8 @@
                         <el-icon><Document /></el-icon>
                         <span>文章管理</span>
                     </template>
-                    <el-menu-item index="1-1">新建文章</el-menu-item>
-                    <el-menu-item index="1-2">编辑文章</el-menu-item>
+                    <el-menu-item index="1-1" @click="compIndex=0">新建文章</el-menu-item>
+                    <el-menu-item index="1-2" @click="compIndex=1">编辑文章</el-menu-item>
                 </el-sub-menu>
                 <el-sub-menu index="2">
                     <template #title>
@@ -30,15 +30,30 @@
             </el-menu>
         </el-card>
 
-        <el-card id="admin-card">
-
-        </el-card>
+        <keep-alive>
+            <component id="admin-card" :is="currentAdminComp"></component>
+        </keep-alive>
     </div>
 </template>
 
 <script>
+import NewArticleComp from "@/components/admin/NewArticleComp.vue";
+import EditArticleComp from "@/components/admin/EditArticleComp.vue";
+
 export default {
-    name: "AdminComp"
+    name: "AdminComp",
+    components: {NewArticleComp, EditArticleComp},
+    computed:{
+        currentAdminComp(){
+            return this.compList[this.compIndex]
+        }
+    },
+    data() {
+        return {
+            compIndex: 0,
+            compList: ['NewArticleComp', 'EditArticleComp']
+        }
+    }
 }
 </script>
 
