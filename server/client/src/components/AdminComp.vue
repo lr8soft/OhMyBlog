@@ -9,16 +9,15 @@
                         <el-icon><Document /></el-icon>
                         <span>文章管理</span>
                     </template>
-                    <el-menu-item index="1-1" @click="compIndex=0">新建文章</el-menu-item>
-                    <el-menu-item index="1-2" @click="compIndex=1">编辑文章</el-menu-item>
+                    <el-menu-item index="1-1" @click="compIndex=1">新建文章</el-menu-item>
+                    <el-menu-item index="1-2" @click="compIndex=2">所有文章</el-menu-item>
                 </el-sub-menu>
                 <el-sub-menu index="2">
                     <template #title>
                         <el-icon><User /></el-icon>
                         <span>用户管理</span>
                     </template>
-                    <el-menu-item index="2-1">用户列表</el-menu-item>
-                    <el-menu-item index="2-2">用户评论</el-menu-item>
+                    <el-menu-item index="2-1" @click="compIndex=3">用户列表</el-menu-item>
                 </el-sub-menu>
                 <el-sub-menu index="3">
                     <template #title>
@@ -38,11 +37,13 @@
 
 <script>
 import NewArticleComp from "@/components/admin/NewArticleComp.vue";
-import EditArticleComp from "@/components/admin/EditArticleComp.vue";
+import BrowseArticleComp from "@/components/admin/BrowseArticleComp.vue";
+import IndexComp from "@/components/admin/IndexComp.vue";
+import BrowseUserComp from "@/components/admin/BrowseUserComp.vue";
 
 export default {
     name: "AdminComp",
-    components: {NewArticleComp, EditArticleComp},
+    components: {IndexComp, NewArticleComp, BrowseArticleComp, BrowseUserComp},
     computed:{
         currentAdminComp(){
             return this.compList[this.compIndex]
@@ -51,7 +52,7 @@ export default {
     data() {
         return {
             compIndex: 0,
-            compList: ['NewArticleComp', 'EditArticleComp']
+            compList: ['IndexComp', 'NewArticleComp', 'BrowseArticleComp', 'BrowseUserComp'],
         }
     }
 }

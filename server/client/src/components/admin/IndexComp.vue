@@ -1,22 +1,25 @@
 <template>
-    <el-card>
+    <el-card id="admin-index-comp">
         <template #header>
-            <span class="title-text">编辑文章</span>
+            <span id="title-text">OhMyBlog后台管理</span>
         </template>
-        <template #default>
-            <span>222222222222</span>
-        </template>
+
     </el-card>
 </template>
 
 <script>
 export default {
-    name: "EditArticleComp"
+    name: "IndexComp"
 }
 </script>
 
 <style scoped>
-.title-text{
+#admin-index-comp{
+    width: 100%;
+    height: 450px;
+}
+
+#title-text{
     font-size: 20px;
     font-weight: bold;
 }

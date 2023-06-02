@@ -1,13 +1,15 @@
 <template>
     <el-card id="new-article-comp">
         <template #header>
-            <span class="title-text">新建文章</span>
+            <span class="title-text" v-if="isNewArticle">新建文章</span>
+            <span class="title-text" v-else>编辑文章</span>
         </template>
         <div id="content-block">
             <el-input id="content-title" v-model="formData.title" placeholder="文章标题" />
             <RichTextComp id="content-text" v-model="formData.content" :editable="true"/>
             <div id="content-button-list">
-                <el-button size="large" type="primary" @click="handleSubmitArticle">发布</el-button>
+                <el-button size="large" type="primary" v-if="isNewArticle" @click="handleSubmitArticle">发布</el-button>
+                <el-button size="large" type="primary" v-else @click="handleUpdateArticle">修改</el-button>
                 <el-button size="large" type="info" @click="handleTempSave">保存草稿</el-button>
             </div>
         </div>
@@ -17,6 +19,7 @@
 <script>
 import RichTextComp from "@/components/RichTextComp.vue";
 import {ElMessage} from "element-plus";
+import {useRoute} from "vue-router";
 
 export default {
     name: "NewArticleComp",
@@ -26,14 +29,31 @@ export default {
             formData: {
                 title: '',
                 content: ''
-            }
+            },
+            // 不是新文章的话，articleId会记录要编辑的文章id
+            isNewArticle: true,
+            articleId: 0
+        }
+    },
+    mounted() {
+        const route = useRoute()
+        // 有route.params.id，说明是编辑文章
+        if(route.params.id) {
+            this.isNewArticle = false
+            this.articleId = route.params.id
+            this.handleLoadOldArticle()
         }
     },
     methods: {
+        handleLoadOldArticle(){
+
+        },
         handleSubmitArticle(){
 
         },
+        handleUpdateArticle(){
 
+        },
         handleTempSave(){
             ElMessage({
                 message: '保存成功',
