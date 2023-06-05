@@ -20,6 +20,7 @@
 import RichTextComp from "@/components/RichTextComp.vue";
 import {ElMessage} from "element-plus";
 import {useRoute} from "vue-router";
+import serviceApi from "@/services/serviceApi";
 
 export default {
     name: "NewArticleComp",
@@ -49,7 +50,21 @@ export default {
 
         },
         handleSubmitArticle(){
-
+            serviceApi.CreateNewArticle(this.formData)
+                .then(res => {
+                    var result = serviceApi.GetApiResult(res)
+                    if(result){
+                        ElMessage({
+                            message: '发布成功',
+                            type: 'success'
+                        })
+                    }else{
+                        ElMessage({
+                            message: serviceApi.GetApiResultExplain(res),
+                            type: 'error'
+                        })
+                    }
+                })
         },
         handleUpdateArticle(){
 

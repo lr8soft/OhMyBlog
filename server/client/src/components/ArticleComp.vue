@@ -3,7 +3,7 @@
     <el-container id="article-page">
         <el-header id="article-header">
             <span id="article-title-text">{{ articleInfo.title }}</span>
-            <span id="article-detail-text">发表：{{articleInfo.createDate}}&nbsp;浏览量：{{articleInfo.pageView}}</span>
+            <span id="article-detail-text">发表：{{dayjs(articleInfo.date).format("YYYY-MM-DD HH:mm:ss")}}&nbsp;浏览量：{{articleInfo.pageView}}</span>
         </el-header>
 
         <el-main id="article-content">
@@ -44,7 +44,9 @@
 
 <script>
 import RichTextComp from "@/components/RichTextComp.vue";
-import {dayjs} from "element-plus";
+import {dayjs, ElMessage} from "element-plus";
+import serviceApi from "@/services/serviceApi";
+import {useRoute} from "vue-router";
 export default {
     name: "ArticleComp",
     components: {RichTextComp},
@@ -56,14 +58,20 @@ export default {
             return this.formData.content.length
         }
     },
+    mounted() {
+        const route = useRoute()
+        var articleId = route.params.id
+        this.articleInfo.id = articleId
+        this.handleLoadArticle()
+    },
     data() {
         return {
             articleInfo: {
                 id: 0,
-                title: 'DayJs',
-                content: '<p style="text-align: start;"><strong>dayjs是一个轻量的处理时间和日期的 JavaScript 库</strong></p><p style="text-align: start;"><strong>dayjs好处</strong></p><p style="text-align: start;"><br></p><ul><li style="text-align: start;">🕒 和Moment.js有着相同的API和模式</li><li style="text-align: start;">💪 不可变、持久性</li><li style="text-align: start;">🔥 提供链式调用</li><li style="text-align: start;">🌐 国际化标准</li><li style="text-align: start;">📦 超小的压缩体积，仅仅有2kb左右</li><li style="text-align: start;">👫 极大多数的浏览器兼容</li></ul>',
-                pageView: 233,
-                createDate: "2021-01-01"
+                title: '',
+                content: '',
+                pageView: 0,
+                date: "2021-01-01"
             },
             formData: {
                 content: ''
@@ -92,6 +100,16 @@ export default {
     methods: {
         handleCreateReply() {
             alert(this.formData.content)
+        },
+        handleLoadArticle() {
+            serviceApi.GetArticleDetail(this.$route.params.id).then(res => {
+                var result = serviceApi.GetApiResult(res)
+                if(result){
+                    this.articleInfo = res.result.data
+                }else{
+                    ElMessage.error(serviceApi.GetApiResultExplain(res))
+                }
+            })
         }
     }
 }

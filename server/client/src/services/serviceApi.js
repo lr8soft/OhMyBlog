@@ -23,37 +23,37 @@ export default {
             method: "post"
         })
     },
-    GetPaginationTopics(pageNum){
+    GetPaginationArticles(pageNum){
         return requestHelper({
-            url: urlHead + "/topic/get_pagination_topics",
+            url: urlHead + "/article/get_pagination_articles",
             method: "post",
             data: {pageNum: pageNum}
         })
     },
-    GetPaginationReplies(topicId, pageNum){
+    CreateNewArticle(formData){
         return requestHelper({
-            url: urlHead + "/topic/get_pagination_topic_replies",
-            method: "post",
-            data : {id: topicId, pageNum: pageNum}
-        })
-    },
-    CreateNewReply(formData){
-        return requestHelper({
-            url: urlHead + "/topic/create_new_reply",
+            url: urlHead + "/article/create_new_article",
             method: "post",
             data: formData
         })
     },
-    DeleteReply(replyId){
+    DeleteArticle(articleId){
         return requestHelper({
-            url: urlHead + "/topic/delete_reply",
+            url: urlHead + "/article/delete_article",
             method: "post",
-            data: { id: replyId }
+            data: { id: articleId }
+        })
+    },
+    GetArticleDetail(articleId){
+        return requestHelper({
+            url: urlHead + "/article/get_article_detail",
+            method: "post",
+            data: { id: articleId }
         })
     },
 
     GetApiResult(response){
-        if(response.status == "operation_success")
+        if(response.status === "operation_success")
             return true
         return false
     },
