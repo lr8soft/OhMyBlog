@@ -2,7 +2,7 @@ from django.core.paginator import Paginator
 from django.views.decorators.http import require_http_methods
 
 from article_manager.models import Article, Reply
-from common import SessionUtils, CommonEnum, ModelUtils
+from common import SessionUtils, CommonEnum, ModelUtils, StringUtils
 from common.ResponseUtils import EnumResponse
 from core import settings
 
@@ -22,6 +22,8 @@ def create_new_reply(request):
         response.setStatus(CommonEnum.ErrorResponse.INCOMPLETE_DATA)
         return response.getResponse()
 
+    # 转义HTML标签
+    content = StringUtils.ConvertToWebString(content)
     user = SessionUtils.GetUser(request)
 
     article = ModelUtils.GetArticle(articleId)

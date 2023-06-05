@@ -20,7 +20,7 @@
                     <p class="article-reply-username">{{reply.author}}</p>
                 </el-aside>
                 <el-main>
-                    <span class="article-reply-content">{{reply.content}}</span>
+                    <span class="article-reply-content" v-html="reply.content"></span>
                 </el-main>
             </el-container>
         </div>
@@ -37,7 +37,7 @@
             <textarea id="article-reply-textbox" v-model="formData.content" />
             <div id="article-reply-submit-area">
                 <span id="article-reply-sum-text">当前回复总字数{{replyCharCount}}</span>
-                <el-button id="article-reply-submit-btn" type="primary" @click="handleCreateReply">提交</el-button>
+                <el-button id="article-reply-submit-btn" type="primary" @click="handleCreateReply" :disabled="!userData.isLogin">提交</el-button>
             </div>
         </div>
     </el-card>
@@ -48,6 +48,7 @@ import RichTextComp from "@/components/RichTextComp.vue";
 import {dayjs, ElMessage} from "element-plus";
 import serviceApi from "@/services/serviceApi";
 import {useRoute} from "vue-router";
+import {useGlobalData} from "@/services/globalData";
 export default {
     name: "ArticleComp",
     components: {RichTextComp},
@@ -86,6 +87,7 @@ export default {
             repliesCount: 0,
             replies: [],
             nullAvatar: require('../assets/avatar.jpg'),
+            userData: useGlobalData()
         }
     },
     methods: {
