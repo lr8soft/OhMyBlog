@@ -35,6 +35,10 @@ def regist(request):
             nickname=nickname,
             email=email
         )
+        # 第一个用户默认admin
+        if User.objects.count() == 1:
+            user.isAdmin = True
+            user.save()
     else:
         response.setStatus(CommonEnum.ErrorResponse.USER_EXISTED)
 

@@ -2,17 +2,18 @@
     <div id="page">
         <div id="info-list">
             <div class="info-item" v-for="item in articleData" :key="item.id">
-                <el-container class="info-item">
+                <el-container class="info-item" >
                     <el-header class="card-header" @click="navigateToArticle(item.id)">
                         <span class="card-text-single card-header-text">{{ item.title }}</span>
                     </el-header>
 
                     <el-main class="card-main">
-                        <RichTextComp class="card-main-text" v-model="item.content" :editable="false" :scrollable="false"/>
+                        <RichTextComp class="card-main-text" v-model="item.content" :editable="false"/>
                     </el-main>
 
                     <el-footer class="card-footer">
                         <span class="card-text-single card-footer-text">发表于{{dayjs(item.date).format("YYYY-MM-DD HH:mm:ss")}} &nbsp;{{ item.pageView }}次浏览</span>
+                        <el-button class="card-footer-detail" @click="navigateToArticle(item.id)">查看详情</el-button>
                     </el-footer>
                 </el-container>
             </div>
@@ -128,10 +129,11 @@ export default {
 .card-main{
     width: 100%;
     min-height: 150px;
-    max-height: 450px;
+    max-height: 500px;
     margin: 0 auto 0 auto;
     /*下划线*/
     border-bottom: 1px solid #ebeef5;
+    overflow: hidden;
 }
 
 .card-text-single{
@@ -150,12 +152,26 @@ export default {
     width: 100%;
     height: 40px;
     margin: 20px auto 0 auto;
+    flex-direction: row;
+    display: flex;
 }
 
 .card-footer-text{
     /*字体灰色*/
     color: #909399;
     font-size: 10px;
+}
+
+.card-footer-detail{
+    width: 120px;
+    height: 30px;
+    margin-left: auto;
+    /*字体灰色*/
+    color: #909399;
+    font-size: 13px;
+    border-radius: 5px;
+    border: 1px solid #ebeef5;
+    background-color: #f5f7fa;
 }
 
 #bottom-part{

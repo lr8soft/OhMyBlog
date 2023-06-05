@@ -42,10 +42,6 @@ export default defineComponent({
         editable: {
             type: Boolean,
             default: true
-        },
-        scrollable: {
-            type: Boolean,
-            default: true
         }
     },
     emits: [
@@ -78,7 +74,6 @@ export default defineComponent({
         watch(props, (newVal, oldVal) => {
             valueHtml.value = props.modelValue;
             editorConfig.readOnly = !props.editable
-            editorConfig.scroll = props.scrollable
         }, {immediate: true})
 
         // eslint-disable-next-line no-unused-vars
@@ -106,4 +101,5 @@ export default defineComponent({
 
     overflow-y: hidden;
 }
+
 </style>

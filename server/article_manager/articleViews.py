@@ -18,6 +18,12 @@ def create_new_article(request):
 
     title = request.POST.get("title")
     content = request.POST.get("content")
+
+    # 检测是否管理员
+    if not SessionUtils.GetIsAdmin(request):
+        response.setStatus(CommonEnum.ErrorResponse.PERMISSION_DENIED)
+        return response.getResponse()
+
     # 检测输入是否完整
     if not title or not content:
         response.setStatus(CommonEnum.ErrorResponse.INCOMPLETE_DATA)
