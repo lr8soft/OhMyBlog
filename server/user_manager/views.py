@@ -18,7 +18,6 @@ def regist(request):
     response = EnumResponse()
 
     if not username or not password or not nickname or not email:
-        print(username, password, nickname, email)
         response.setStatus(CommonEnum.ErrorResponse.INCOMPLETE_CERTIFICATE)
         return response.getResponse()
 
@@ -60,6 +59,13 @@ def login(request):
 
     if user:
         SessionUtils.SetIsLogin(request, True, user.username)
+        userdata = {
+            'username': user.username,
+            'nickname': user.nickname,
+            'email': user.email,
+            'isAdmin': user.isAdmin
+        }
+        response.setResult(userdata)
     else:
         response.setStatus(CommonEnum.ErrorResponse.WRONG_CERTIFICATE)
 

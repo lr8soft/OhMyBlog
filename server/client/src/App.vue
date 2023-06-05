@@ -20,13 +20,13 @@
         v-model="drawer"
         direction="rtl"
         size="15%">
-        <div
-            style="margin-bottom: 18px;"
-            v-for="linkItem in menuLink"
-            :key="linkItem.id">
-            <!--检测链接是否http开头-->
-            <a class="app-main-drawer-item" :href="linkItem.link" v-if="linkItem.link.startsWith('http')">{{linkItem.name}}</a>
-            <router-link class="app-main-drawer-item" :to="linkItem.link" v-else>{{linkItem.name}}</router-link>
+        <div style="margin-bottom: 18px;">
+            <router-link class="app-main-drawer-item" to="/" >首页</router-link>
+
+            <router-link class="app-main-drawer-item" to="/admin" v-if="userData.isAdmin">后台管理</router-link>
+            <router-link class="app-main-drawer-item" to="/login" v-if="!userData.isLogin">登录</router-link>
+            <router-link class="app-main-drawer-item" to="/logout" v-else>登出</router-link>
+            <a class="app-main-drawer-item" href="http://lrsoft.xyz:8080/" >GitLab</a>
         </div>
 
     </el-drawer>
@@ -40,28 +40,6 @@ export default {
     name: 'App',
     data(){
         return{
-            menuLink: [
-                {
-                    id: 0,
-                    name: '首页',
-                    link: '/'
-                },
-                {
-                    id: 1,
-                    name: '登录',
-                    link: '/login'
-                },
-                {
-                    id: 2,
-                    name: '后台管理',
-                    link: '/admin'
-                },
-                {
-                    id: 3,
-                    name: 'GitLab',
-                    link: 'http://lrsoft.xyz:8080/'
-                }
-            ],
             logo: require('./assets/logo.png'),
             userData: useGlobalData(),
             drawer: ref(false)
@@ -170,7 +148,7 @@ html, body{
 
 .app-main-drawer-item{
     width: 100%;
-    margin: auto;
+    margin: auto auto 10px auto;
     color: black;
     text-decoration: none;
     /*居中显示*/

@@ -17,7 +17,6 @@
             <el-container class="article-reply">
                 <el-aside class="article-reply-aside">
                     <img class="article-reply-user-avatar" :src="reply.avatar" @error="handleNoAvatar">
-                    <!--如果头像加载失败-->
                     <p class="article-reply-username">{{reply.author}}</p>
                 </el-aside>
                 <el-main>

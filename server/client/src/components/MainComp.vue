@@ -56,9 +56,9 @@ export default {
             articleData: [
                 {
                     id: 0,
-                    title: 'title1',
+                    title: '',
                     content: '',
-                    pageView: 233,
+                    pageView: 0,
                     date: "2021-01-01"
                 }
             ],
