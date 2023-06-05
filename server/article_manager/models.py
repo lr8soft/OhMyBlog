@@ -20,12 +20,11 @@ class Reply(models.Model):
     id = models.AutoField(primary_key=True)
     content = models.TextField(null=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
-    topic = models.ForeignKey(Article, on_delete=models.CASCADE, null=False)
-    floor = models.IntegerField(null=False)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, null=False)
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return "id:" + self.id + " article:" + self.article + " author:" + self.author + " floor:" + self.floor
+        return "id:" + self.id + " article:" + self.article + " author:" + self.author
 
 
 class Attachments(models.Model):

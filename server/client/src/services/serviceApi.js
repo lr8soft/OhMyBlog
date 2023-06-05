@@ -51,6 +51,20 @@ export default {
             data: { id: articleId }
         })
     },
+    CreateArticleReply(formData){
+        return requestHelper({
+            url: urlHead + "/article/create_new_reply",
+            method: "post",
+            data: formData
+        })
+    },
+    GetArticleReplies(pageNum, articleId) {
+        return requestHelper({
+            url: urlHead + "/article/get_pagination_replies",
+            method: "post",
+            data: { pageNum: pageNum, articleId: articleId }
+        })
+    },
 
     GetApiResult(response){
         if(response.status === "operation_success")
@@ -61,8 +75,7 @@ export default {
         if(response.status in statusExplain)
             return statusExplain[response.status]
         return "未知错误"
-    },
-
+    }
 }
 
 

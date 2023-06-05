@@ -1,5 +1,4 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 
 from article_manager.models import Article
@@ -77,6 +76,7 @@ def get_pagination_articles(request):
 
     return response.getResponse()
 
+
 @require_http_methods(['POST'])
 def get_article_detail(request):
     response = EnumResponse()
@@ -101,6 +101,12 @@ def get_article_detail(request):
         "pageView": article.pageView,
         "date": article.date
     }}
+
+    try:
+        article.pageView += 1
+        article.save()
+    except Exception as error:
+        print(error)
 
     response.setResult(result)
 

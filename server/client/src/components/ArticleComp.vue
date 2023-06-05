@@ -16,8 +16,9 @@
         <div  v-for="reply in replies" :key="reply.id">
             <el-container class="article-reply">
                 <el-aside class="article-reply-aside">
-                    <img class="article-reply-user-avatar" :src="reply.avatar">
-                    <p class="article-reply-username">{{reply.user}}</p>
+                    <img class="article-reply-user-avatar" :src="reply.avatar" @error="handleNoAvatar">
+                    <!--如果头像加载失败-->
+                    <p class="article-reply-username">{{reply.author}}</p>
                 </el-aside>
                 <el-main>
                     <span class="article-reply-content">{{reply.content}}</span>
@@ -31,6 +32,7 @@
                        :page-count="pageCount"
                        :page-size="pageItemCount"
                        @current-change="handleCurrentChange"
+                       v-if="repliesCount > 0"
         ></el-pagination>
         <div id="article-create-reply">
             <textarea id="article-reply-textbox" v-model="formData.content" />
@@ -62,7 +64,9 @@ export default {
         const route = useRoute()
         var articleId = route.params.id
         this.articleInfo.id = articleId
+        this.formData.articleId = articleId
         this.handleLoadArticle()
+        this.handleLoadReplies()
     },
     data() {
         return {
@@ -74,32 +78,29 @@ export default {
                 date: "2021-01-01"
             },
             formData: {
+                articleId: -1,
                 content: ''
             },
+            currentPage: 1,
             pageCount: 1,
             pageItemCount: 10,
-            repliesCount: 2,
-            replies: [
-                {
-                    id: 0,
-                    user: 'lrsoft',
-                    avatar: require('../assets/avatar.jpg'),
-                    content: 'HELLO WORLD!',
-                    createData: '2021-01-01 00:00:00'
-                },
-                {
-                    id: 1,
-                    user: 'lttest',
-                    avatar: require('../assets/avatar.jpg'),
-                    content: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                    createData: '2021-01-01 00:00:00'
-                }
-            ],
+            repliesCount: 0,
+            replies: [],
+            nullAvatar: require('../assets/avatar.jpg'),
         }
     },
     methods: {
         handleCreateReply() {
-            alert(this.formData.content)
+            serviceApi.CreateArticleReply(this.formData).then(res => {
+                var result = serviceApi.GetApiResult(res)
+                if(result){
+                    this.handleLoadReplies()
+                    this.formData.content = ''
+                    ElMessage.success("发送成功")
+                }else{
+                    ElMessage.error(serviceApi.GetApiResultExplain(res))
+                }
+            })
         },
         handleLoadArticle() {
             serviceApi.GetArticleDetail(this.$route.params.id).then(res => {
@@ -110,7 +111,24 @@ export default {
                     ElMessage.error(serviceApi.GetApiResultExplain(res))
                 }
             })
-        }
+        },
+        handleLoadReplies() {
+            serviceApi.GetArticleReplies(this.currentPage, this.articleInfo.id).then(res => {
+                var result = serviceApi.GetApiResult(res)
+                if(result){
+                    this.replies = res.result.replies
+                    this.repliesCount = this.replies.length
+                    this.pageCount = res.result.pageCount
+                }else{
+                    ElMessage.error(serviceApi.GetApiResultExplain(res))
+                }
+            })
+        },
+        handleNoAvatar(e) {
+            let img = e.srcElement;
+            img.src = this.nullAvatar;
+            img.onerror = null;
+        },
     }
 }
 </script>
