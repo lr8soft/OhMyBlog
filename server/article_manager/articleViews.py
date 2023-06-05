@@ -68,12 +68,41 @@ def get_pagination_articles(request):
                     "date": article.date}
             pageTopics.append(info)
 
-        result["topics"] = pageTopics
+        result["data"] = pageTopics
         response.setResult(result)
 
     except Exception as error:
         response.setStatus(CommonEnum.ErrorResponse.OPERATION_FAIL)
         print("get_pagination_topics ERROR:" + error.__str__())
+
+    return response.getResponse()
+
+@require_http_methods(['POST'])
+def get_article_detail(request):
+    response = EnumResponse()
+    # 检测输入完整
+    articleId = request.POST.get("id")
+    if not articleId:
+        response.setStatus(CommonEnum.ErrorResponse.INCOMPLETE_DATA)
+        return response.getResponse()
+
+    # 文章是否存在
+    article = ModelUtils.GetArticle(articleId)
+    if not article:
+        response.setStatus(CommonEnum.ErrorResponse.ARTICLE_NOT_EXIST)
+        return response.getResponse()
+
+    result = {"data": {
+        "id": article.id,
+        "title": article.title,
+        "content": article.content,
+        "author": article.author.username,
+        "repliesCount": article.repliesCount,
+        "pageView": article.pageView,
+        "date": article.date
+    }}
+
+    response.setResult(result)
 
     return response.getResponse()
 

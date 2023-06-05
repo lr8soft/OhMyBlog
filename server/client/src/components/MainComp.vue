@@ -8,11 +8,11 @@
                     </el-header>
 
                     <el-main class="card-main">
-                        <RichTextComp class="card-main-text" v-model="item.content" :editable="false"/>
+                        <RichTextComp class="card-main-text" v-model="item.content" :editable="false" :scrollable="false"/>
                     </el-main>
 
                     <el-footer class="card-footer">
-                        <span class="card-text-single card-footer-text">发表于{{ item.createDate }} &nbsp;{{ item.pageView }}次浏览</span>
+                        <span class="card-text-single card-footer-text">发表于{{dayjs(item.date).format("YYYY-MM-DD HH:mm:ss")}} &nbsp;{{ item.pageView }}次浏览</span>
                     </el-footer>
                 </el-container>
             </div>
@@ -34,12 +34,20 @@
 
 <script>
 import serviceApi from "@/services/serviceApi";
-import {ElMessage} from "element-plus";
+import {dayjs, ElMessage} from "element-plus";
 import {useGlobalData} from "@/services/globalData";
 import RichTextComp from "@/components/RichTextComp.vue";
 export default {
     name: "MainComp",
     components: {RichTextComp},
+    computed: {
+        dayjs() {
+            return dayjs
+        }
+    },
+    mounted() {
+        this.handlePageChange()
+    },
     data() {
         return {
             currentPage: 1,
@@ -49,18 +57,9 @@ export default {
                 {
                     id: 0,
                     title: 'title1',
-                    content: '<p style="text-align: start;"><strong>dayjs是一个轻量的处理时间和日期的 JavaScript 库</strong></p><p style="text-align: start;"><strong>dayjs好处</strong></p><p style="text-align: start;"><br></p><ul><li style="text-align: start;">🕒 和Moment.js有着相同的API和模式</li><li style="text-align: start;">💪 不可变、持久性</li><li style="text-align: start;">🔥 提供链式调用</li><li style="text-align: start;">🌐 国际化标准</li><li style="text-align: start;">📦 超小的压缩体积，仅仅有2kb左右</li><li style="text-align: start;">👫 极大多数的浏览器兼容</li></ul>',
-                    banner: "default.png",
+                    content: '',
                     pageView: 233,
-                    createDate: "2021-01-01"
-                },
-                {
-                    id: 1,
-                    title: '222',
-                    content: '<p>contentcontentcontentcontent</p>',
-                    banner: "default.png",
-                    pageView: 233,
-                    createDate: "2021-01-01"
+                    date: "2021-01-01"
                 }
             ],
             userData: useGlobalData()
@@ -72,9 +71,16 @@ export default {
             this.handlePageChange()
         },
         handlePageChange() {
-            serviceApi.getTopicList(this.currentPage, this.pageItemCount).then(res => {
-                this.topicData = res.data
-                this.pageCount = res.pageCount
+            serviceApi.GetPaginationArticles(this.currentPage).then(res => {
+                var result = serviceApi.GetApiResult(res)
+                if(result){
+                    this.articleData = res.result.data
+                    this.pageItemCount = res.result.pageItemCount
+                    this.pageCount = res.result.pageCount
+                }else{
+                    ElMessage.error(serviceApi.GetApiResultExplain(res))
+                }
+
             }).catch(err => {
                 ElMessage.error(err)
             })
@@ -136,15 +142,7 @@ export default {
 }
 
 .card-main-text{
-    /*最多换行3行，禁止滚动条*/
-    /*overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    word-break: break-all;
-    text-overflow: ellipsis;*/
-    text-align: left;
-
+    min-height: 150px;
     font-size: 15px;
 }
 
