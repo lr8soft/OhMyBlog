@@ -24,6 +24,14 @@
                 </el-main>
             </el-container>
         </div>
+        <el-pagination id="article-paginator-comp"
+                       v-model:current-page="currentPage"
+                       background
+                       layout="prev, pager, next, jumper"
+                       :page-count="pageCount"
+                       :page-size="pageItemCount"
+                       @current-change="handleCurrentChange"
+        ></el-pagination>
         <div id="article-create-reply">
             <textarea id="article-reply-textbox" v-model="formData.content" />
             <div id="article-reply-submit-area">
@@ -184,6 +192,12 @@ export default {
     -webkit-box-orient: vertical;
 
 }
+
+#article-paginator-comp{
+    width: 100%;
+    margin: auto auto 10px auto;
+}
+
 
 #article-create-reply{
     width: 100%;
